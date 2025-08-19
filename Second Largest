@@ -1,0 +1,73 @@
+Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
+Note: The second largest element should not be equal to the largest element.
+Examples:
+Input: arr[] = [12, 35, 1, 10, 34, 1]
+Output: 34
+Explanation: The largest element of the array is 35 and the second largest element is 34.
+Input: arr[] = [10, 5, 10]
+Output: 5
+Explanation: The largest element of the array is 10 and the second largest element is 5.
+Input: arr[] = [10, 10, 10]
+Output: -1
+Explanation: The largest element of the array is 10 and the second largest element does not exist.
+Constraints:
+2 ≤ arr.size() ≤ 105
+1 ≤ arr[i] ≤ 105
+
+Efficient Approach (O(n) Time, O(1) Space)
+We can solve this in one pass through the array by keeping track of two variables:
+first → largest element
+second → second largest element
+
+Steps:
+Initialize first = -1, second = -1
+Loop through each element x in array:
+If x > first: update second = first, first = x
+Else if x < first && x > second: update second = x
+After loop ends, return second.
+If second remains -1, it means there is no valid second largest.
+
+Java Implementation
+import java.util.Scanner;
+public class SecondLargest {
+    public static int secondLargest(int[] arr) {
+        if (arr.length < 2) return -1;
+
+        int first = -1;   // Largest
+        int second = -1;  // Second largest
+
+        for (int num : arr) {
+            if (num > first) {
+                second = first;
+                first = num;
+            } else if (num < first && num > second) {
+                second = num;
+            }
+        }
+        return second;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Take array size from user
+        System.out.print("Enter the size of array: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Take array elements from user
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Find and print second largest
+        int result = secondLargest(arr);
+        System.out.println("Second Largest Element: " + result);
+
+        sc.close();
+    }
+}
+
+
